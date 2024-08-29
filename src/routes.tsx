@@ -15,6 +15,7 @@ const Typography = React.lazy(() => import('./views/theme/typography/Typography'
 // Whatsapp
 const Message = React.lazy(() => import('./views/whatsapp/message/Message'))
 const Image = React.lazy(() => import('./views/whatsapp/image/Image'))
+const File = React.lazy(() => import('./views/whatsapp/file/File'))
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
 const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))
@@ -88,6 +89,11 @@ const routes: Route[] = [
     path: '/whatsapp/image',
     name: <Translation>{(t) => t('Image')}</Translation>,
     element: Image,
+  },
+  {
+    path: '/whatsapp/file',
+    name: <Translation>{(t) => t('File')}</Translation>,
+    element: File,
   },
   {
     path: '/dashboard',
