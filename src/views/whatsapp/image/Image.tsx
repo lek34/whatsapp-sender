@@ -10,6 +10,7 @@ import {
   CForm,
   CFormInput,
   CFormLabel,
+  CFormTextarea,
   CInputGroup,
   CRow,
 } from '@coreui/react-pro';
@@ -21,7 +22,7 @@ const ImageUploader = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [image, setImage] = useState<File | null>(null); // Handle the image file
   const [loading, setLoading] = useState(false); // Loading state
-
+  const [message, setMessage] = useState('');
   // Validation function
   const validateForm = () => {
     if (phoneNumber.trim() === '' || !image) {
@@ -92,9 +93,9 @@ const ImageUploader = () => {
     const promises = phoneNumbersArray.map(async (num) => {
       // Create a new FormData instance for each recipient
       const formData = new FormData();
+      formData.append('message', message);
       formData.append('recipient', num);
       formData.append('file', image as File);
-
       return await sendImage(formData);
     });
 
@@ -109,6 +110,7 @@ const ImageUploader = () => {
     if (allSuccess) {
       setPhoneNumber('');
       setImage(null);
+      setMessage('');
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
@@ -231,7 +233,17 @@ const ImageUploader = () => {
                   ref={imageInputRef}
                   onChange={handleImageUpload}
                 />
+                
               </div>
+              <div className="mb-3">
+                <CFormLabel htmlFor="message">Message</CFormLabel>
+                <CFormTextarea
+                    id="message"
+                    rows={3}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                ></CFormTextarea>
+                </div>
               <CButton color="primary" type="submit" disabled={loading}>
                 {loading ? 'Sending...' : 'Send Image'}
               </CButton>
