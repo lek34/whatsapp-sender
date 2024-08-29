@@ -75,7 +75,10 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const Invoice = React.lazy(() => import('./views/apps/invoicing/Invoice'))
 
 const routes: Route[] = [
-  { path: '/', exact: true, name: <Translation>{(t) => t('home')}</Translation> },
+  { path: '/', 
+    name: <Translation>{(t) => t('Message')}</Translation> ,
+    element: Message,
+},
   {
     path: '/whatsapp/message',
     name: <Translation>{(t) => t('Message')}</Translation>,
