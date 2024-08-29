@@ -41,8 +41,8 @@ import type { State } from './../store'
 
 const AppHeader = () => {
   const headerRef = useRef<HTMLDivElement>(null)
-  // const { colorMode, setColorMode } = useColorModes('coreui-pro-react-admin-template-theme-default')
-  // const { i18n, t } = useTranslation()
+  const { colorMode, setColorMode } = useColorModes('coreui-pro-react-admin-template-theme-default')
+  const { i18n, t } = useTranslation()
 
   const dispatch = useDispatch()
   const asideShow = useSelector((state: State) => state.asideShow)
@@ -64,58 +64,28 @@ const AppHeader = () => {
         >
           <CIcon icon={cilMenu} size="lg" />
         </CHeaderToggler>
-        {/* <CHeaderNav className="d-none d-md-flex">
+        <CHeaderNav className="d-none d-md-flex">
           <CNavItem>
-            <CNavLink to="/dashboard" as={NavLink}>
-              {t('dashboard')}
-            </CNavLink>
+            
           </CNavItem>
           <CNavItem>
-            <CNavLink href="#">{t('users')}</CNavLink>
+            
           </CNavItem>
           <CNavItem>
-            <CNavLink href="#">{t('settings')}</CNavLink>
+            
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav className="d-none d-md-flex ms-auto">
-          <AppHeaderDropdownNotif />
-          <AppHeaderDropdownTasks />
-          <AppHeaderDropdownMssg />
+          
         </CHeaderNav>
         <CHeaderNav className="ms-auto ms-md-0">
-          <li className="nav-item py-1">
+          {/* <li className="nav-item py-1">
             <div className="vr h-100 mx-2 text-body text-opacity-75"></div>
-          </li>
+          </li> */}
           <CDropdown variant="nav-item" placement="bottom-end">
             <CDropdownToggle caret={false}>
-              <CIcon icon={cilLanguage} size="lg" />
+              {/* <CIcon icon={cilLanguage} size="lg" /> */}
             </CDropdownToggle>
-            <CDropdownMenu>
-              <CDropdownItem
-                active={i18n.language === 'en'}
-                className="d-flex align-items-center"
-                as="button"
-                onClick={() => i18n.changeLanguage('en')}
-              >
-                <CIcon className="me-2" icon={cifGb} size="lg" /> English
-              </CDropdownItem>
-              <CDropdownItem
-                active={i18n.language === 'es'}
-                className="d-flex align-items-center"
-                as="button"
-                onClick={() => i18n.changeLanguage('es')}
-              >
-                <CIcon className="me-2" icon={cifEs} size="lg" /> Español
-              </CDropdownItem>
-              <CDropdownItem
-                active={i18n.language === 'pl'}
-                className="d-flex align-items-center"
-                as="button"
-                onClick={() => i18n.changeLanguage('pl')}
-              >
-                <CIcon className="me-2" icon={cifPl} size="lg" /> Polski
-              </CDropdownItem>
-            </CDropdownMenu>
           </CDropdown>
           <CDropdown variant="nav-item" placement="bottom-end">
             <CDropdownToggle caret={false}>
@@ -157,11 +127,10 @@ const AppHeader = () => {
               </CDropdownItem>
             </CDropdownMenu>
           </CDropdown>
-          <li className="nav-item py-1">
+          {/* <li className="nav-item py-1">
             <div className="vr h-100 mx-2 text-body text-opacity-75"></div>
-          </li>
-          <AppHeaderDropdown />
-        </CHeaderNav> */}
+          </li> */}
+        </CHeaderNav>
         {/* <CHeaderToggler
           onClick={() => dispatch({ type: 'set', asideShow: !asideShow })}
           style={{ marginInlineEnd: '-12px' }}
