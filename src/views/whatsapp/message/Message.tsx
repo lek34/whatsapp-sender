@@ -133,20 +133,26 @@ const Message = () => {
 
   const handleSubmit = async () => {
     if (!validateForm()) return;
-
+  
     const phoneNumbersArray = phoneNumber.split(',').map(num => num.trim());
-
+  
     const promises = phoneNumbersArray.map(async (num, index) => {
       let personalizedMessage = message;
-      parametersData[index].forEach((param, i) => {
-        personalizedMessage = personalizedMessage.replace(`{Parameter${i + 1}}`, param || '');
-      });
+  
+      // Check if there are any parameters to replace
+      if (parametersData[index]) {
+        parametersData[index].forEach((param, i) => {
+          personalizedMessage = personalizedMessage.replace(`{Parameter${i + 1}}`, param || '');
+        });
+      }
+  
+      // Send the message (either personalized or as-is if no parameters)
       return await sendMessage({ recipient: num, message: personalizedMessage });
     });
-
+  
     const results = await Promise.all(promises);
     const allSuccess = results.every(r => r.error === "false");
-
+  
     if (allSuccess) {
       setPhoneNumber('');
       setMessage('');
@@ -169,6 +175,7 @@ const Message = () => {
       });
     }
   };
+  
 
   const showAlert = () => {
     Swal.fire({
