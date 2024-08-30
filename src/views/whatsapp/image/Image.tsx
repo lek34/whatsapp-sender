@@ -94,9 +94,11 @@ const ImageUploader = () => {
     const promises = phoneNumbersArray.map(async (num, index) => {
       // Create a new FormData instance for each recipient
       let personalizedMessage = message;
-      parametersData[index].forEach((param, i) => {
-        personalizedMessage = personalizedMessage.replace(`{Parameter${i + 1}}`, param || '');
-      });
+      if (parametersData[index]) {
+        parametersData[index].forEach((param, i) => {
+          personalizedMessage = personalizedMessage.replace(`{Parameter${i + 1}}`, param || '');
+        });
+      }
       const formData = new FormData();
       formData.append('message', personalizedMessage);
       formData.append('recipient', num);
