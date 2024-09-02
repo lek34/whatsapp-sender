@@ -10,6 +10,7 @@ import {
   CCardHeader,
   CCol,
   CForm,
+  CFormCheck,
   CFormInput,
   CFormLabel,
   CFormTextarea,
@@ -23,6 +24,7 @@ const Message = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [message, setMessage] = useState('');
   const [parametersData, setParametersData] = useState<string[][]>([]);
+  const [resetChecked, setResetChecked] = useState(false);
 
   const showSheetSelectionPopup = (data: any) => {
     Swal.fire({
@@ -155,10 +157,13 @@ const Message = () => {
   
     if (allSuccess) {
       setPhoneNumber('');
-      setMessage('');
-      setParametersData([]);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
+      if(resetChecked) {
+        setMessage('');
+        setParametersData([]);
+        if (fileInputRef.current) {
+          fileInputRef.current.value = '';
+        }
+        setResetChecked(false); 
       }
       Swal.fire({
         title: 'Success!',
@@ -202,6 +207,7 @@ const Message = () => {
           <CCardBody>
             <CForm onSubmit={(e) => { e.preventDefault(); showAlert(); }}>
               <div className="mb-3">
+                <CFormCheck id="flexCheckDefault" label="Reset"/>
                 <CFormLabel htmlFor="phoneNumber">Phone Number</CFormLabel>
                 <CInputGroup className="mb-3">
                   <CFormInput type="file" id="fileInput" ref={fileInputRef} onChange={handleFileUpload} />

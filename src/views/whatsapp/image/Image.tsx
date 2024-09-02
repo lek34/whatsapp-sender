@@ -8,6 +8,7 @@ import {
   CCardHeader,
   CCol,
   CForm,
+  CFormCheck,
   CFormInput,
   CFormLabel,
   CFormTextarea,
@@ -24,7 +25,8 @@ const ImageUploader = () => {
   const [loading, setLoading] = useState(false); // Loading state
   const [message, setMessage] = useState('');
   const [parametersData, setParametersData] = useState<string[][]>([]);
- 
+  const [resetChecked, setResetChecked] = useState(false);
+
   const validateForm = () => {
     if (phoneNumber.trim() === '' || !image) {
       Swal.fire({
@@ -116,14 +118,20 @@ const ImageUploader = () => {
 
     if (allSuccess) {
       setPhoneNumber('');
-      setImage(null);
-      setMessage('');
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
-      if (imageInputRef.current) {
-        imageInputRef.current.value = ''; // Clear the image file input
+      if (resetChecked) {
+        // Reset all fields if the reset checkbox is checked
+        setImage(null);
+        setMessage('');
+        setParametersData([]);
+        if (imageInputRef.current) {
+          imageInputRef.current.value = ''; // Clear the image file input
+        }
+        setResetChecked(false); // Uncheck the reset checkbox
       }
+
       Swal.fire({
         title: 'Success!',
         text: 'All images sent successfully!',
@@ -239,6 +247,7 @@ const ImageUploader = () => {
           <CCardBody>
             <CForm onSubmit={(e) => { e.preventDefault(); showAlert(); }}>
               <div className="mb-3">
+                <CFormCheck id="flexCheckDefault" label="Reset"/>
                 <CFormLabel htmlFor="phoneNumber">Phone Number</CFormLabel>
                 <CInputGroup className="mb-3">
                   <CFormInput type="file" id="fileInput" ref={fileInputRef} onChange={handleFileUpload} />
